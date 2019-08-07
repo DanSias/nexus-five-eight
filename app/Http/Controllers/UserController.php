@@ -9,9 +9,29 @@ class UserController extends Controller
 {
     public function store()
     {
-        User::create([
-            'name' => request('name'),
-            'email' => request('email')
+        User::create($this->validateData());
+    }
+
+    public function show(User $user)
+    {
+        return $user;
+    }
+
+    public function update(User $user)
+    {
+        $user->update($this->validateData());
+    }
+
+    private function validateData()
+    {
+        return request()->validate([
+            'name' => 'required',
+            'email' => 'required|email'
         ]);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
     }
 }
