@@ -14,7 +14,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        return Note::all();
     }
 
     /**
@@ -33,9 +33,9 @@ class NoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        Note::create($this->validateData());
     }
 
     /**
@@ -81,5 +81,19 @@ class NoteController extends Controller
     public function destroy(Note $note)
     {
         //
+    }
+
+
+    private function validateData()
+    {
+        return request()->validate([
+            'id' => 'integer',
+            'program_id' => 'integer',
+            'user_id' => '',
+            'type' => '',
+            'program' => 'required',
+            'channel' => '',
+            'content' => '',
+        ]);
     }
 }
