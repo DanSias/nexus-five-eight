@@ -21,6 +21,11 @@ class UserController extends Controller
     {
         $user->update($this->validateData());
     }
+    
+    public function destroy(User $user)
+    {
+        $user->delete();
+    }
 
     private function validateData()
     {
@@ -28,10 +33,5 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email'
         ]);
-    }
-
-    public function destroy(User $user)
-    {
-        $user->delete();
     }
 }
